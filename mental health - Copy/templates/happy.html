@@ -1,0 +1,156 @@
+<!-- HTML (index.html) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Surya Namaskar</title>
+    <style>
+        /* CSS (style.css) */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: rgb(184, 220, 220);  
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        h4 {
+            margin: 0;
+            padding: 10px 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .image-container {
+            width: 600px;
+            height: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: all 0.5s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+        .image-container.hidden {
+            opacity: 0;
+            pointer-events: none; /* To prevent accidental clicks on hidden elements */
+        }
+        img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+        
+
+        .hidden {
+            display: none;
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 1rem;
+            color: #777;
+        }
+
+        /* Adding transitions for smoother appearance changes */
+        .transition {
+            transition: opacity 0.5s ease-in-out;
+        }
+
+
+    </style>
+    <script>
+        // JavaScript (script.js)
+        document.addEventListener('DOMContentLoaded', () => {
+            const imageContainers = document.querySelectorAll('.image-container'); // Get all image containers
+            let currentIndex = 0; // Index to track current pose
+
+            const changePose = () => {
+                // Hide all images and their names
+                imageContainers.forEach(container => container.classList.add('hidden'));
+
+                // Show the current image and its name
+                imageContainers[currentIndex].classList.remove('hidden');
+
+                // Move to the next index, looping back to the start if at the end
+                currentIndex = (currentIndex + 1) % imageContainers.length;
+            };
+
+            // Change pose every 30 seconds
+            setInterval(changePose, 5000);
+
+            // Initial call to set the first visible pose
+            changePose();
+        });
+
+    </script>
+</head>
+<body>
+    <h1>Surya Namaskar</h1>
+    <div class="image-container">
+        <img id="yoga-pose" src="https://yogic-experience.com/wp-content/uploads/2023/06/Prayer-Pose-1170x658.png" alt="Surya Namaskar Pose 1">
+        <h4>PRANAMASANA</h4>
+    </div>
+    <div class="image-container">
+        <img id="yoga-pose" src="https://yogic-experience.com/wp-content/uploads/2023/06/Raised-Arms-Pose-1170x658.png" alt="Surya Namaskar Pose 2">
+        <h4>HASTA UTTANASANA</h4>
+    </div>
+    <div class="image-container">
+        <img id="yoga-pose" src="https://yogic-experience.com/wp-content/uploads/2023/06/Standing-Forward-Bend-Pose-1170x658.png" alt="Surya Namaskar Pose 3">
+        <h4>PADA HASTASANA</h4>
+    </div>\
+    <div class="image-container">
+        <img id="yoga-pose" src="https://yogic-experience.com/wp-content/uploads/2023/06/Lunge-Pose-1170x658.png" alt="Surya Namaskar Pose 4">
+        <h4>AHSWA SANCHALANASANA</h4>
+    </div>
+    <div class="image-container">
+        <img id="yoga-pose" src="https://yogic-experience.com/wp-content/uploads/2023/06/Plank-Pose-1024x576.png" alt="Surya Namaskar Pose 5">
+        <h4>DANDASANA</h4>
+    </div>
+    <div class="image-container">
+        <img id="yoga-pose" src="https://yogic-experience.com/wp-content/uploads/2023/06/Eight-Limbed-Pose-1024x576.png" alt="Surya Namaskar Pose 6">
+        <h4>ASTANGA NAMASKARA</h4>
+    </div>
+    <div class="image-container">
+        <img id="yoga-pose" src="https://yogic-experience.com/wp-content/uploads/2023/06/Cobra-Pose1-1024x576.png" alt="Surya Namaskar Pose 7">
+        <h4>BHUJANGASANA</h4>
+    </div>
+    <div class="image-container">
+        <img id="yoga-pose" src="https://yogic-experience.com/wp-content/uploads/2023/06/Downward-Dog-Pose-1024x576.png" alt="Surya Namaskar Pose 8">
+        <h4>ADHA MUKHA SVANASANA</h4>
+    </div>
+    <div class="image-container">
+        <img id="yoga-pose" src="https://yogic-experience.com/wp-content/uploads/2023/06/Lunge-Pose-1-1024x576.png" alt="Surya Namaskar Pose 9">
+        <h4>ASHWA SANCHALANSANA</h4>
+    </div>
+    <div class="image-container">
+        <img id="yoga-pose" src="https://yogic-experience.com/wp-content/uploads/2023/06/Standing-Forward-Bend-Pose-1-1024x576.png" alt="Surya Namaskar Pose 9">
+        <h4>PADA HASTASANA</h4>
+    </div>
+    <div class="image-container">
+        <img id="yoga-pose" src="https://yogic-experience.com/wp-content/uploads/2023/06/Raised-Arms-Pose-1170x658.png" alt="Surya Namaskar Pose 10">
+        <h4>UTTANA HASTASANA</h4>
+    </div>
+    <div class="image-container">
+        <img id="yoga-pose" src="https://yogic-experience.com/wp-content/uploads/2023/06/Prayer-Pose-1170x658.png" alt="Surya Namaskar Pose 11">
+        <h4>PRANAMASANA</h4>
+    </div>
+    
+</body>
+</html>

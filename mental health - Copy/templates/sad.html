@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>30-Day Self-Care Challenge</title>
+    <style>
+        body {
+            font-family: 'Helvetica', sans-serif;
+            text-align: center;
+            background: url('https://tse2.mm.bing.net/th?id=OIP.4elqo1bAxTbSGg-p6mLMmgHaFE&pid=Api&P=0&h=180') no-repeat center center fixed;  
+            background-size: cover;   
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-top: 20px;
+            color: black;
+            text-shadow: 2px 2px 5px,rgba(1, 1,1, 0.7);
+        }
+
+        .box-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px; 
+        }
+
+        .box {
+            width: 120px;
+            height: 120px;
+            border: 2px solid rgba(255, 255, 255, 0.5); 
+            background-color: rgba(255, 255, 255, 0.7); 
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+            cursor: pointer;
+            position: relative;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .box:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
+        }
+
+        .box .content {
+            display: none;  
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #333;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .box span {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            color:black;
+            font-weight: 525;
+            background-color: rgb(67, 6, 29,0.500);  
+            border: 2px solid transparent;  
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            opacity: 0.4;
+        }
+        .box .lock {
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 1;
+        }
+        .box.hide-image img {
+            display: none; 
+        }
+
+        .box.opened {
+            border-color: #4CAF50; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);  
+            background-color: rgba(255, 255, 255, 0.9); 
+        }
+
+        .box .done-button {
+            display: none; /* Initially hidden */
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .box.opened .done-button {
+            display: block; /* Show when unlocked */
+        }
+
+    </style>
+    <script>
+        let unlockedDay = 0; // Tracks the highest unlocked day
+        function unlockDay(element) {
+            const day = parseInt(element.dataset.day);
+            
+            // Check if the user is allowed to unlock this day
+            if (day > unlockedDay + 1) {
+                alert("Solve older activities first!"); // Display alert message if out of order
+                return;
+            }
+            const content = element.querySelector('.content');
+            const lock = element.querySelector('.lock');
+            const isUnlocked = content.style.display === 'block';
+
+            if (!isUnlocked) {
+                content.style.display = 'block'; // Display the challenge
+                lock.style.display = 'none'; // Hide the lock icon
+                element.style.borderColor = '#4CAF50'; // Change border color to indicate it's unlocked
+                element.classList.add('opened');  // Indicate the box is opened
+                element.classList.add('hide-image');
+                // Show the "Done" button
+                const doneButton = element.querySelector('.done-button');
+                doneButton.style.display = 'block';
+            }
+        }
+
+        function markAsDone(button) {
+            const box = button.closest('.box');
+            const day = parseInt(box.dataset.day);
+            box.style.backgroundColor = 'rgba(76, 175, 80, 0.5)'; // Change background to indicate completion
+            button.style.display = 'none'; // Hide the "Done" button after clicking
+            // Update the unlocked day only if it’s the current day
+            if (day > unlockedDay) {
+                unlockedDay = day; // Update the unlocked day to the current one
+            }
+        }   
+    </script>
+</head>
+<body>
+    <h1>30-Day Self-Care Challenge</h1>
+    <div class="box-container">
+        <!-- Create 30 boxes for 30 days -->
+        <!-- Each box should have a data attribute to represent the day and a hidden content with the challenge -->
+        <div class="box" data-day="1" onclick="unlockDay(this)">
+            <img class="image" src="https://cdn-icons-png.flaticon.com/128/4551/4551398.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Write a gratitude journal</div>
+            <span>Day 1</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="2" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/10516/10516492.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon">  
+            <div class="content">Meditate for 10 minutes</div>
+            <span>Day 2</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="3" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/4243/4243477.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon">  
+            <div class="content">Spend a day social media free</div>
+            <span>Day 3</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="4" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/6012/6012274.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Call someone you love</div>
+            <span>Day 4</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="5" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/13264/13264567.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Take a 15 minutes walk outdoors</div>
+            <span>Day 5</span>
+        </div>
+        <div class="box" data-day="6" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/12076/12076762.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Listen to a self help podcast</div>
+            <span>Day 6</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="7" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/4112/4112908.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Learn to cook a new recipe</div>
+            <span>Day 7</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="8" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/10572/10572385.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Stretch for 10 minutes</div>
+            <span>Day 8</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="9" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/6001/6001155.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Listen to a favourite song</div>
+            <span>Day 9</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="10" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/12868/12868455.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Practice deep breathing</div>
+            <span>Day 10</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="11" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/11447/11447555.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Try a free online workout</div>
+            <span>Day 11</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="12" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/1219/1219138.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Read a book for 15 minutes</div>
+            <span>Day 12</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="13" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/15987/15987836.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Write a list of short term goals</div>
+            <span>Day 13</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="14" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/8685/8685836.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Declutter a room or desk</div>
+            <span>Day 14</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="15" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/10572/10572591.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Go to bed 30 minutes early</div>
+            <span>Day 15</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="16" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/9037/9037333.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Have a game night with freinds</div>
+            <span>Day 16</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="17" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/9565/9565354.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Wake up 30 minutes early</div>
+            <span>Day 17</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="18" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/13064/13064162.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Make your favourite meal</div>
+            <span>Day 18</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="19" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/8685/8685649.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Buy yourself something nice</div>
+            <span>Day 19</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="20" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/10474/10474435.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Create a bucket list</div>
+            <span>Day 20</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="21" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/7757/7757775.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Watch a movie or series</div>
+            <span>Day 21</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="22" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/10572/10572495.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Write down your thoughts</div>
+            <span>Day 22</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="23" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/7081/7081314.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Take a long shower or bath</div>
+            <span>Day 23</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="24" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/9037/9037378.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Have a home spa day</div>
+            <span>Day 24</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="25" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/9037/9037481.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Read inspirational quotes</div>
+            <span>Day 25</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="26" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/5511/5511772.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Create a vision board</div>
+            <span>Day 26</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="27" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/7451/7451730.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Spend some time outside</div>
+            <span>Day 27</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="28" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/6819/6819622.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Do a hairmask</div>
+            <span>Day 28</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        <div class="box" data-day="29" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/9037/9037523.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Write it all down in a journal</div>
+            <span>Day 29</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+        
+        <div class="box" data-day="30" onclick="unlockDay(this)">
+            <img src="https://cdn-icons-png.flaticon.com/128/7081/7081302.png" alt="30-minute walk">
+            <img class="lock" src="https://img.icons8.com/?size=48&id=12324&format=png" alt="lock icon"> 
+            <div class="content">Go to your happy place with your friends</div>
+            <span>Day 30</span>
+            <button class="done-button" onclick="markAsDone(this)">Done</button>
+        </div>
+    </div>
+</body>
+</html>
